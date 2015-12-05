@@ -1,0 +1,16 @@
+html
+    head
+        title='add listing'
+    body
+        h1 Insert New Listing
+        form(method="POST" action="/insert")
+            p Please enter picture URL:
+            input(type="text" name='url')
+            p Please enter listing title:
+            input(type="text" name='title')
+            p Please enter price in dollar:
+            input(type="text" name='price')
+            p Please enter listing description:
+            input(type="text" name='descript')
+            input(type="submit" value="submit")
+        a(href="/seeList") click here to see listings

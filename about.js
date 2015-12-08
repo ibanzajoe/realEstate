@@ -5,7 +5,7 @@ var mongoose = require('mongoose'),
     service = require('./schemas/service'),
     test = require('./schemas/test'),
     contact = require('./schemas/contact'),
-    disc = require('./schemas/disclaimer'),
+  //  disc = require('./schemas/disclaimer'),
     bodyParser = require('body-parser'),
     request = require('request'),
     cheerio = require('cheerio'),
@@ -27,41 +27,33 @@ var server = app.listen(3000, function(){
 });
 mongoose.connect('mongodb://localhost/test');
 
-app.get('/createAgent', function(req, res) {
-    var nbout = new bout({
-        pURL: 'xxxx',
-        name: 'Anna Lee',
-        title: 'Real Estate Agent',
-        phone: '818-497-4098',
-        fax: '818-797-9999',
-        email: 'banzajoe@gmail.com',
-        address: 'Address: 4578 Marmora Road, Glasgow D04 89GR'
-    });
-    nbout.save(function (err, bout) {
-        if (err) return console.error(err);
-        res.redirect('/agentdb');
-    });
+app.get('/addInfo', function(req, res){
+    res.render('addInfo');
 });
-app.get('/agentdb', function (req, res) {
-        bout.findOne({name: 'Anna Lee'}, function (err, bout) {
-            if (err) return console.error(err);
-            console.log(bout.name);
-            res.render('about', {
-                "pURL": bout.pURL,
-                "name": bout.name,
-                "title": bout.title,
-                "phone": bout.phone,
-                "fax": bout.fax,
-                "email": bout.email
-            });
-        });
-
+app.post('/insertAgent', function(req, res){
+    var info = new bout({
+        pURL: req.body.pURL,
+        name: req.body.name,
+        title: req.body.title,
+        phone: req.body.phone,
+        fax: req.body.fax,
+        email: req.body.email,
+        address: req.body.address,
+        facebook: req.body.face,
+        twitter: req.body.twitter,
+        skype: req.body.skype,
+        disclaimer: req.body.disclaimer,
+        unsubscribe: req.body.unsubscribe,
+        copyright: req.body.copyright
     });
+    bout.save(function(err,bout){
+        res.send(bout);
+    })
+});
+
 app.get('/addList', function(req, res){
     res.render('listing');
 });
-
-//Fx to insert the picture data into mongoDB
 app.post('/insert', function(req, res){
     var nList = new Lists({
         url: req.body.url,
@@ -74,31 +66,7 @@ app.post('/insert', function(req, res){
         res.redirect('/database');
     })
 });
-app.get('/database', function(req, res){
-    Lists.find(function(err, lists) {
-        res.send(lists);
-    })
-});
-app.get('/seeList', function(req, res) {
-    bout.find({name: 'Anna Lee'}, function (err, x) {
-        Lists.find(function (err, y) {
-            service.find(function (err, z) {
-                test.find(function (err, t) {
-                    contact.find(function (err, q) {
-                        disc.find(function(err, w){
-                        res.render('about', {
-                            bout: x,
-                            Lists: y,
-                            service: z,
-                            test: t,
-                            contact: q,
-                            disc: w
-                        })
-                    })
-                });
-            });
-        });
-    });
+
 app.get('/addService', function (req, res) {
     res.render('service');
 });
@@ -111,7 +79,8 @@ app.post('/insertService', function (req, res) {
         if (err) console.error(err);
         res.send(serv);
     })
-})
+});
+
 app.get('/addTest', function (req, res) {
     res.render('testimony');
 });
@@ -125,10 +94,29 @@ app.post('/insertTesti', function (req, res) {
         if (err) console.error(err);
         res.send(testz);
     })
-})
+});
+
+app.get('/seeList', function(req, res) {
+    bout.find({name: 'Anna Lee'}, function (err, x) {
+        Lists.find(function (err, y) {
+            service.find(function (err, z) {
+                test.find(function (err, t) {
+                    res.render('about', {
+                        bout: x,
+                        Lists: y,
+                        service: z,
+                        test: t
+                    })
+                })
+            });
+        });
+    });
+});
+
+
 app.get('/addContact', function (req, res) {
     res.render('contact');
-})
+});
 app.post('/insertContact', function (req, res) {
     var cont = new contact({
         facebook: req.body.facebook,
@@ -139,15 +127,41 @@ app.post('/insertContact', function (req, res) {
         res.send(cont);
     });
 });
-});
-
-app.get('/insertDisc', function(req, res){
-    var disclaim = new disc({
+app.get('/createAgent', function(req, res) {
+    var nbout = new bout({
+        pURL: 'xxxx',
+        name: 'Anna Lee',
+        title: 'Real Estate Agent',
+        phone: '818-497-4098',
+        fax: '818-797-9999',
+        email: 'banzajoe@gmail.com',
+        address: 'Address: 4578 Marmora Road, Glasgow D04 89GR',
         disclaimer: "You're receiving this email because you signed up for «David Brown» or attended one of our events.",
         unsubscribe: "You can unsubscribe from this email or change your email notifications.",
         copyright: "David Brown © 2015. Privacy Policy"
+    });
+    nbout.save(function (err, bout) {
+        if (err) return console.error(err);
+        res.redirect('/agentdb');
+    });
+});
+app.get('/agentdb', function (req, res) {
+    bout.findOne({name: 'Anna Lee'}, function (err, bout) {
+        if (err) return console.error(err);
+        console.log(bout.name);
+        res.render('about', {
+            "pURL": bout.pURL,
+            "name": bout.name,
+            "title": bout.title,
+            "phone": bout.phone,
+            "fax": bout.fax,
+            "email": bout.email
+        });
+    });
+
+});
+app.get('/database', function(req, res){
+    Lists.find(function(err, lists) {
+        res.send(lists);
     })
-    disclaim.save(function(err, disc){
-        res.send(disc);
-    })
-})});
+});

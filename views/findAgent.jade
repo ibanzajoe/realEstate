@@ -1,0 +1,10 @@
+html
+    head
+        title='find Agent'
+    body
+        h1 Search for Name of Agent
+        form(method="POST" action="/updateAgent")
+            p Please enter agent name:
+            input(type="text" name='name')
+            input(type="submit" value="submit")
+        a(href="/seeList") click here to see listings

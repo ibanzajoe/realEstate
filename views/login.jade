@@ -1,0 +1,12 @@
+html
+    head
+        title='login screen'
+    body
+        h1 Insert username and password
+        form(method="POST" action="/login")
+            p Please enter username:
+            input(type="text" name='username')
+            p Please enter password:
+            input(type="text" name='password')
+            input(type="submit" value="submit")
+        a(href="/seeList") click here to see listings

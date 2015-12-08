@@ -58,14 +58,13 @@ html
                 p13=r.fax
                 p14=r.email
                 br
-                for q in contact
-                    img(src=q.facebook)
-                    img(src=q.twitter)
-                    img(src=q.skype)
+                img(src=r.facebook)
+                img(src=r.twitter)
+                img(src=r.skype)
         #disclaimer
-            each w in disc
-                p15=w.disclaimer
+            each r in bout
+                p15=r.disclaimer
                 br
-                p16=w.unsubscribe
+                p16=r.unsubscribe
                 br
-                p17=w.copyright
+                p17=r.copyright

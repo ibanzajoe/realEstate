@@ -1,0 +1,34 @@
+html
+    head
+        title='add Personal Information'
+    body
+        h1 Insert Agent Information
+        form(method="POST" action="/insertAgent")
+            p Please enter picture URL:
+            input(type="text" name='pURL')
+            p Please enter name of Agent:
+            input(type="text" name='name')
+            p Please enter agent's title:
+            input(type="text" name='title')
+            p Please enter agent's phone#:
+            input(type="text" name='phone')
+            p Please enter agent's fax#:
+            input(type="text" name='fax')
+            p Please enter agent's email:
+            input(type="text" name='email')
+            p Please enter agent's address:
+            input(type="text" name='address')
+            p Please enter facebook link:
+            input(type="text" name='facebook')
+            p Please enter twitter link:
+            input(type="text" name='twitter')
+            p Please enter skype link:
+            input(type="text" name='skype')
+            p Please enter disclaimer statement:
+            input(type="text" name='disclaimer')
+            p Please enter agent's unsubscribe statement:
+            input(type="text" name='unsubscribe')
+            p Please enter agent's copyright statement:
+            input(type="text" name='copyright')
+            input(type="submit" value="submit")
+        a(href="/seeList") click here to see listings

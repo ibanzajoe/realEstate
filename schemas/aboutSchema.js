@@ -7,7 +7,13 @@ var boutSchema = new mongoose.Schema ({   //this is setting up the schema of the
     fax: String,                      //photos of listing in
     email: String,
     pURL: String,
-    address: String
+    address: String,
+    facebook: String,
+    twitter: String,
+    skype: String,
+    disclaimer: String,
+    unsubscribe: String,
+    copyright: String
 });
 
 var bout = mongoose.model('bout', boutSchema);  //set var "Sites" mongoose.model method that create model from the schema above titled "Lists"

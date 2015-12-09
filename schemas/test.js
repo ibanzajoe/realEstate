@@ -1,9 +1,9 @@
 var mongoose = require('mongoose');
 
 var testSchema = new mongoose.Schema ({   //this is setting up the schema of the object and the "keys" involved
-    url: {type: String, unique: true},     //url of pictures of listing
+    primary_photo: String,
     //title of listing
-    testimony: String,                    //description of listing
+    test: String,
     //photos of listing in
     name: String
 });

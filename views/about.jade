@@ -1,67 +1,64 @@
-html
-    head
-        title='Anna Lee'
-        link(rel="stylesheet" href="style.css")
-    body
-        #facepage.aagent
-                img(src=agent.pURL)
-                h1=agent.name
-                h2=agent.title
-                p1=agent.phone
-                p=agent.fax
-                p=agent.email
-        #listing.list
-            h2 My Listings
-            p I Offer the Best
-            table
-                each val in Lists
-                    tr
-                        td
-                            img(src=val.primary_photo)
-                        td
-                            h3=val.title
-                            #pricebox.dollar
-                                p=val.price
-                            p=val.description
-        #services
-            h2 SERVICES
-            each y in service
-                tr
-                    td
-                        img(src=y.url)
-                        p=y.descript
-        #lastest
-            h2 LATEST PROPERTIES
-            each z in Lists
-                tr
-                    td
-                        img(src=z.primary_photo)
-                        br
-                        p=z.title
-                        p=z.price
-        #testimony
-            h2 TESTIMONIALS
-            each t in test
-                tr
-                    td
-                        img(src=t.url)
-                        p=t.testimony
-                        p=t.name
-                br
-        #contact
-            h2 CONTACTS
-            p=agent.address
-            br
-            p=agent.phone
-            p=agent.fax
-            p=agent.email
-            br
-            img(src=agent.facebook)
-            img(src=agent.twitter)
-            img(src=agent.skype)
-        #disclaimer
-            p=agent.disclaimer
-            br
-            p=agent.unsubscribe
-            br
-            p=agent.copyright
+extends ./admin.jade
+block content
+  #facepage.agent
+    img(src=agent.pURL)
+    h1=agent.name
+    h2=agent.title
+    p1=agent.phone
+    p=agent.fax
+    p=agent.email
+  #listing.list
+    h2 My Listings
+    p I Offer the Best
+    table
+      each val in Lists
+        tr
+          td
+            img(src=val.primary_photo)
+          td
+            h3=val.title
+            #pricebox.dollar
+              p=val.price
+            p=val.description
+  #services
+    h2 SERVICES
+    each y in service
+      tr
+        td
+          img(src=y.url)
+          p=y.descript
+  #lastest
+    h2 LATEST PROPERTIES
+    each z in Lists
+      tr
+        td
+          img(src=z.primary_photo)
+          br
+          p=z.title
+          p=z.price
+  #testimony
+    h2 TESTIMONIALS
+    each t in test
+      tr
+        td
+          img(src=t.primary_photo)
+          p=t.test
+          p=t.name
+      br
+  #contact
+    h2 CONTACTS
+    p=agent.address
+    br
+    p=agent.phone
+    p=agent.fax
+    p=agent.email
+    br
+    img(src=agent.facebook)
+    img(src=agent.twitter)
+    img(src=agent.skype)
+  #disclaimer
+    p=agent.disclaimer
+    br
+    p=agent.unsubscribe
+    br
+    p=agent.copyright

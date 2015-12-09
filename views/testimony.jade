@@ -1,13 +1,13 @@
 html
     head
-        title='add listing'
+        title='add testimony'
     body
-        h1 Insert New Listing
+        h1 Insert New Testimony
         form(method="POST" action="/insertTesti")
-            p Please enter picture URL:
-            input(type="text" name='url')
+            p Please url of picture:
+            input(type="text" name='primary_photo')
             p Please enter testimony:
-            input(type="text" name='testimony')
+            input(type="text" name='test')
             p Please enter name:
             input(type="text" name='name')
             input(type="submit" value="submit")

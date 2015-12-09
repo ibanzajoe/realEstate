@@ -3,7 +3,7 @@ var mongoose = require('mongoose'),
   Agent = require('./schemas/aboutSchema'),
   List = require('./schemas/listScheme'),
   service = require('./schemas/service'),
-  test = require('./schemas/test'),
+  Tests = require('./schemas/test'),
   contact = require('./schemas/contact'),
 //  disc = require('./schemas/disclaimer'),
   bodyParser = require('body-parser'),
@@ -47,7 +47,7 @@ app.get('/', function(req, res){
   Agent.findOne(function (err, agent) {
     List.find(function (err, y) {
       service.find(function (err, z) {
-        test.find(function (err, t) {
+        Tests.find(function (err, t) {
           res.render('about', {
             agent: agent,
             Lists: y,
@@ -244,13 +244,14 @@ app.post('/insertService', loggedIn, function (req, res) {
   })
 });
 
-app.get('/addTest', loggedIn, function (req, res) {
+app.get('/testimony/new', loggedIn, function (req, res) {
   res.render('testimony');
 });
 app.post('/insertTesti', loggedIn, function (req, res) {
-  var testz = new test({
-    url: req.body.url,
-    testimony: req.body.testimony,
+  console.log(req.body.primary_photo);
+  var testz = new Tests({
+    primary_photo: req.body.primary_photo,
+    test: req.body.test,
     name: req.body.name
   })
   testz.save(function (err, test) {
@@ -259,18 +260,72 @@ app.post('/insertTesti', loggedIn, function (req, res) {
   })
 });
 
+app.get('/viewTest', function(req, res){
+  Tests.find(function(err, test) {
+    console.log(test);
+    res.render('viewTest',{
+      Tests: test
+    });
+  })
+})
+
+app.get('/testimony/edit/:id', function(req,res){
+  var id = req.params.id
+  console.log(id);
+  Tests.findOne({_id: id}, function(err, test){
+    console.log(test);
+    res.render('testimony2', {
+      Tests: test
+    })
+  })
+})
+
+app.post('/testimony/save/', function(req,res){
+  var body = req.body,
+    id = body._id
+
+  if(id){
+    Tests.findOne({_id: id}, function(err, test){
+      if(err) console.log(err)
+
+      if(test){
+        //update current list
+        var updated = _.assign(test, body)
+        updated.save( function(err, saved){
+          if(err) console.log(err)
+
+          res.redirect('/viewTest')
+        })
+      }else{
+        console.log('bad id')
+        res.resend('tu madre')
+      }
+    })
+  }else{
+    //create new
+    delete body._id
+    var list = new List(body)
+    list.save(function(err,saved){
+      if(err) console.log(err)
+      console.log('saved')
+      res.redirect('/listings')
+    })
+  }
+})
+
+
 app.get('/seeList', loggedIn, function(req, res) {
 //    req.session.tumadre = req.session.tumadre? req.session.tumadre+1:1;
 //    console.log(req.session.tumadre);
-  bout.findOne(function (err, x) {
-    Lists.find(function (err, y) {
-      service.find(function (err, z) {
-        test.find(function (err, t) {
+  Agent.findOne(function (err, agent) {
+    List.find(function (err, list) {
+      service.find(function (err, service) {
+        Tests.find(function (err, test) {
           res.render('about', {
-            bout: x,
-            Lists: y,
-            service: z,
-            test: t
+            agent: agent,
+            Lists: list,
+            service: service,
+            test: test
           })
         })
       });

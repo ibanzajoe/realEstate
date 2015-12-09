@@ -1,0 +1,15 @@
+html
+  head
+    title='edit testimony'
+  body
+    h1 Edit Testimony
+    form(method="POST" action="/testimony/save")
+      input(type="hidden" name="_id" value=Tests._id)
+      p Please url of picture:
+      input(type="text" name='primary_photo' value=Tests.primary_photo)
+      p Please enter testimony:
+      input(type="text" name='test' value=Tests.test)
+      p Please enter name:
+      input(type="text" name='name' value=Tests.name)
+      input(type="submit" value="submit")
+    a(href="/seeList") click here to see listings

@@ -1,0 +1,18 @@
+extends admin.jade
+block content
+  table(border=1)
+    tr
+      th photo
+      th testimony
+      th name
+    each z in Tests
+      tr
+        td
+          img(src=z.primary_photo style="width: 100px")
+        td= z.test
+        td= z.name
+          a(href="/testimony/edit/#{z._id}") Edit
+  a(href="/testimony/new") Add new testimony
+  br
+  a(href="/") click here to redirect to root
+

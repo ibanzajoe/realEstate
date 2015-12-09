@@ -1,0 +1,29 @@
+{
+  "name": "realestate",
+  "version": "1.0.0",
+  "description": "",
+  "main": "about.js",
+  "dependencies": {
+    "body-parser": "^1.14.1",
+    "express": "^4.13.3",
+    "express-session": "^1.12.1",
+    "jade": "^1.11.0",
+    "lodash": "^3.10.1",
+    "mongoose": "^4.2.10",
+    "request": "^2.67.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ibanzajoe/realEstate.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ibanzajoe/realEstate/issues"
+  },
+  "homepage": "https://github.com/ibanzajoe/realEstate#readme"
+}

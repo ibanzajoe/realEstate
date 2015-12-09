@@ -1,33 +1,27 @@
 #facepage {
     background-color: dodgerblue;
     width: 640px;
-    height: 345px;
     align-content: center;
 }
 #listing {
     background-color: darkgrey;
     width: 640px;
-    height: 800px;
     align-content: center;
 }
 #services {
     width: 640px;
-    height: 320px;
     background-color: indianred;
 }
 #testimony{
     width: 640px;
-    height: 500px;
     background-color: cornflowerblue;
 }
 #contact{
     width: 640px;
-    height: 350px;
     background-color: greenyellow;
 }
 #disclaimer{
     width: 640px;
-    height: 300px;
     background-color: darkorange;
 }
 h1 {

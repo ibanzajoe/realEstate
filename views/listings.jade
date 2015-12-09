@@ -1,0 +1,37 @@
+extends admin.jade
+
+
+block content
+  form(method="GET", action="/listings")
+    br
+    p enter title of listing to search
+    input(type="text" name="title" value=filters.title)
+    br
+    p enter description of listing to search
+    input(type="text" name="description" value=filters.description)
+    br
+    p enter price of listing to search
+    input(type="text" name="price" value=filters.price)
+    br
+    input(type="submit" value="submit")
+  hr
+  a(href="/listing/new") Add new
+  table(border=1)
+    tr
+      th photo
+      th title
+      th price
+      th description
+      th action
+    each l in Lists
+      tr
+        td
+          img(src=l.primary_photo style="width: 100px")
+        td= l.title
+        td= l.price
+        td= l.description
+        td
+          a(href="/listing/edit/#{l._id}") Edit
+
+  a(href="/") click here to redirect to root
+

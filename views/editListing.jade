@@ -1,0 +1,17 @@
+html
+    head
+        title='edit data'
+    body
+        form(method="POST" action="/insertNewData")
+            p Please enter listing URL:
+            input(type="text" name="url" value=list.url)
+            p Please enter listing title:
+            input(type="text" name='title' value=list.title)
+            p Please enter price in dollar:
+            input(type="text" name='price' value=list.price)
+            p Please enter listing description:
+            input(type="text" name='descript' value=list.description)
+            p Please enter listing photo URL:
+            input(type="text" name='photo' value=list.photo)
+            input(type="submit" value="submit")
+        a(href="/seeList") click here to see listings

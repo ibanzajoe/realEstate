@@ -4,13 +4,12 @@ html
         link(rel="stylesheet" href="style.css")
     body
         #facepage.about
-            each x in bout
-                img(src=x.url)
-                h1=x.name
-                h2=x.title
-                p1=x.phone
-                p2=x.fax
-                p3=x.email
+                img(src=bout.url)
+                h1=bout.name
+                h2=bout.title
+                p1=bout.phone
+                p2=bout.fax
+                p3=bout.email
         #listing.list
             p4 My Listings
             p5 I Offer the Best
@@ -51,20 +50,18 @@ html
                 br
         #contact
             h6 CONTACTS
-            each r in bout
-                p11=r.address
+                p11=bout.address
                 br
-                p12=r.phone
-                p13=r.fax
-                p14=r.email
+                p12=bout.phone
+                p13=bout.fax
+                p14=bout.email
                 br
-                img(src=r.facebook)
-                img(src=r.twitter)
-                img(src=r.skype)
+                img(src=bout.facebook)
+                img(src=bout.twitter)
+                img(src=bout.skype)
         #disclaimer
-            each r in bout
-                p15=r.disclaimer
+                p15=bout.disclaimer
                 br
-                p16=r.unsubscribe
+                p16=bout.unsubscribe
                 br
-                p17=r.copyright
+                p17=bout.copyright

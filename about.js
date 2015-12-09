@@ -42,9 +42,17 @@ var server = app.listen(3000, function(){
 mongoose.connect('mongodb://localhost/test');
 
 app.get('/', function(req, res){
-    res.render('login');
-    console.log(secret);
+    if(req.session.login==true) {
+        res.redirect('/loginScreen');
+    } else{
+        res.render('login');
+    }
 });
+
+app.get('/loginScreen', testSession, function(req, res){
+    res.render('loginScreen');
+});
+
 app.post('/login', function(req, res){
     console.log(req.body.username);
     console.log(req.body.password);
@@ -53,10 +61,7 @@ app.post('/login', function(req, res){
     if((secret.user.username == req.body.username) && (secret.user.password == req.body.password)){
         req.session.login = true;
         console.log(req.session.login);
-        res.render('loginScreen', {
-            username: req.body.username,
-            password: req.body.password
-        })
+        res.redirect('/loginScreen');
 
     } else{
         res.send('your username and/or password is incorrect')
@@ -64,31 +69,57 @@ app.post('/login', function(req, res){
 });
 
 app.get('/addInfo', testSession, function(req, res) {
-    if(req.session.login==true){
-        res.render('addInfo');
-    } else {
-        console.log('it did not work, fix it');
-    }
-
+        bout.findOne(function(err, y){
+            console.log(y);
+            res.render('addInfo', {
+                data: y
+            });
+        });
     });
 app.post('/insertAgent', testSession, function(req, res){
-    var info = new bout({
-        pURL: req.body.pURL,
-        name: req.body.name,
-        title: req.body.title,
-        phone: req.body.phone,
-        fax: req.body.fax,
-        email: req.body.email,
-        address: req.body.address,
-        facebook: req.body.face,
-        twitter: req.body.twitter,
-        skype: req.body.skype,
-        disclaimer: req.body.disclaimer,
-        unsubscribe: req.body.unsubscribe,
-        copyright: req.body.copyright
-    });
-    bout.save(function(err,bout){
-        res.send(bout);
+    var id = req.body._id;
+    console.log(id);
+    bout.findOne({_id: id}, function(err, x){
+        console.log(x);
+        if(x){
+            x.pURL=req.body.pURL;
+            x.name=req.body.name;
+            x.title=req.body.title;
+            x.phone=req.body.phone;
+            x.fax=req.body.fax;
+            x.email=req.body.email;
+            x.address=req.body.address;
+            x.facebook=req.body.facebook;
+            x.twitter=req.body.twitter;
+            x.skype=req.body.skype;
+            x.disclaimer=req.body.disclaimer;
+            x.unsubscribe=req.body.unsubscribe;
+            x.copyright=req.body.copyright;
+            x.save(function(err, cb){
+                console.log(cb);
+                res.redirect('/');
+            });
+        } else{
+            var info = new bout({
+                pURL: req.body.pURL,
+                name: req.body.name,
+                title: req.body.title,
+                phone: req.body.phone,
+                fax: req.body.fax,
+                email: req.body.email,
+                address: req.body.address,
+                facebook: req.body.face,
+                twitter: req.body.twitter,
+                skype: req.body.skype,
+                disclaimer: req.body.disclaimer,
+                unsubscribe: req.body.unsubscribe,
+                copyright: req.body.copyright
+            });
+            info.save(function(err,y){
+                console.log(err);
+                console.log(y);
+            })
+        }
     })
 });
 
@@ -102,7 +133,7 @@ app.post('/insert', testSession, function(req, res){
         price: req.body.price,
         description: req.body.descript                    //description of listing
     });
-    nList.save(function (err, nList) {
+    nList.save(function (err, cb) {
         if (err) console.error(err);
         res.redirect('/database');
     })
@@ -140,7 +171,7 @@ app.post('/insertTesti', testSession, function (req, res) {
 app.get('/seeList', testSession, function(req, res) {
 //    req.session.tumadre = req.session.tumadre? req.session.tumadre+1:1;
 //    console.log(req.session.tumadre);
-    bout.find({name: 'Anna Lee'}, function (err, x) {
+    bout.findOne(function (err, x) {
         Lists.find(function (err, y) {
             service.find(function (err, z) {
                 test.find(function (err, t) {
@@ -221,6 +252,71 @@ app.get('/agentdb', testSession, function (req, res) {
 });
 app.get('/database', testSession, function(req, res){
     Lists.find(function(err, lists) {
-        res.send(lists);
+        res.render('dataView',{
+            Lists: lists
+        });
     })
 });
+app.post('/updateData', testSession, function(req,res) {
+    if (req.body.pURL) {
+        Lists.findOne({url: req.body.pURL}, function (err, cb) {
+            console.log("URL: ", cb);
+            res.render('editListing', {
+                list: cb
+            });
+        });
+    } else {
+        if (req.body.title) {
+            Lists.findOne({title: req.body.title}, function (err, cb) {
+                console.log("title: ", cb);
+                res.render('editListing', {
+                    list: cb
+                });
+            })
+        }
+        else {
+            if (req.body.description) {
+                Lists.findOne({description: req.body.description}, function (err, cb) {
+                    console.log("desc: ", cb);
+                    res.render('editListing', {
+                        list: cb
+                    });
+                })
+            }
+            else {
+                if (req.body.photo) {
+                    Lists.findOne({photo: req.body.photo}, function (err, cb) {
+                        console.log("photo: ", cb);
+                        res.render('editListing', {
+                            list: cb
+                        });
+                    })
+                }
+                else {
+                    if (req.body.price) {
+                        Lists.findOne({price: req.body.price}, function (err, cb) {
+                            console.log("price: ", cb);
+                            res.render('editListing', {
+                                list: cb
+                            });
+                        })
+                    }
+                }
+            }
+        }
+    }
+});
+
+app.post('/insertNewData', testSession, function(req,res){
+    var nList = new Lists({
+        url: req.body.url,
+        title: req.body.title,
+        price: req.body.price,
+        description: req.body.descript,
+        photo: req.body.photo
+    });
+    nList.save(function (err, cb) {
+        if (err) console.error(err);
+        res.redirect('/seeList');
+    })
+})

@@ -1,0 +1,29 @@
+html
+    head
+        title='view your data'
+    body
+        each r in Lists
+            p=r.url
+            p=r.title
+            p=r.price
+            p=r.description
+        a(href="/") click here to redirect to root
+        form(method="POST", action="/updateData")
+            p use the following searches to find your listing to modify
+            br
+            p enter URL of picture to search
+            input(type="text" name="pURL")
+            br
+            p enter title of listing to search
+            input(type="text" name="title")
+            br
+            p enter description of listing to search
+            input(type="text" name="description")
+            br
+            p enter url link for photo of listing
+            input(type="text" name="photo")
+            br
+            p enter price of listing to search
+            input(type="text" name="price")
+            br
+            input(type="submit" value="submit")

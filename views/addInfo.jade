@@ -4,31 +4,32 @@ html
     body
         h1 Insert Agent Information
         form(method="POST" action="/insertAgent")
+            input(type="hidden" name="_id" value=data._id)
             p Please enter picture URL:
-            input(type="text" name='pURL')
+            input(type="text" name='pURL' value=data.pURL)
             p Please enter name of Agent:
-            input(type="text" name='name')
+            input(type="text" name='name' value=data.name)
             p Please enter agent's title:
-            input(type="text" name='title')
+            input(type="text" name='title' value=data.title)
             p Please enter agent's phone#:
-            input(type="text" name='phone')
+            input(type="text" name='phone' value=data.phone)
             p Please enter agent's fax#:
-            input(type="text" name='fax')
+            input(type="text" name='fax' value=data.fax)
             p Please enter agent's email:
-            input(type="text" name='email')
+            input(type="text" name='email' value=data.email)
             p Please enter agent's address:
-            input(type="text" name='address')
+            input(type="text" name='address' value=data.address)
             p Please enter facebook link:
-            input(type="text" name='facebook')
+            input(type="text" name='facebook' value=data.facebook)
             p Please enter twitter link:
-            input(type="text" name='twitter')
+            input(type="text" name='twitter' value=data.twitter)
             p Please enter skype link:
-            input(type="text" name='skype')
+            input(type="text" name='skype' value=data.skype)
             p Please enter disclaimer statement:
-            input(type="text" name='disclaimer')
+            input(type="text" name='disclaimer' value=data.disclaimer)
             p Please enter agent's unsubscribe statement:
-            input(type="text" name='unsubscribe')
+            input(type="text" name='unsubscribe' value=data.unsubscribe)
             p Please enter agent's copyright statement:
-            input(type="text" name='copyright')
+            input(type="text" name='copyright' value=data.copyright)
             input(type="submit" value="submit")
         a(href="/seeList") click here to see listings

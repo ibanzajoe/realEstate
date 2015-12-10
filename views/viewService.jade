@@ -1,0 +1,19 @@
+extends ./admin.jade
+block content
+  table(border=1)
+    tr
+      th photo
+      th services
+    each z in Service
+      tr
+        td
+          img(src=z.primary_photo style="width: 100px")
+        td= z.service
+        td
+          a(href="/service/edit/#{z._id}") Edit
+  a(href="/service/new") Add new services
+  br
+  a(href="/") click here to redirect to root
+  br
+  a(href="/admin") click here to redirect to admin
+

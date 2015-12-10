@@ -2,7 +2,7 @@ var mongoose = require('mongoose'),
   express = require('express'),
   Agent = require('./schemas/aboutSchema'),
   List = require('./schemas/listScheme'),
-  service = require('./schemas/service'),
+  Service = require('./schemas/service'),
   Tests = require('./schemas/test'),
   contact = require('./schemas/contact'),
 //  disc = require('./schemas/disclaimer'),
@@ -46,7 +46,7 @@ mongoose.connect(db_settings.db);
 app.get('/', function(req, res){
   Agent.findOne(function (err, agent) {
     List.find(function (err, y) {
-      service.find(function (err, z) {
+      Service.find(function (err, z) {
         Tests.find(function (err, t) {
           res.render('about', {
             agent: agent,
@@ -230,24 +230,73 @@ app.post('/insert', loggedIn, function(req, res){
   })
 });
 
-app.get('/addService', loggedIn, function (req, res) {
+app.get('/service/new', loggedIn, function (req, res) {
   res.render('service');
 });
-app.post('/insertService', loggedIn, function (req, res) {
-  var serv = new service({
-    url: req.body.url,
-    descript: req.body.descript
+app.post('/service/insert', loggedIn, function (req, res) {
+  var serv = new Service({
+    primary_photo: req.body.primary_photo,
+    service: req.body.service
   })
   serv.save(function (err, serv) {
     if (err) console.error(err);
     res.send(serv);
   })
 });
+app.get('/service', function(req, res){
+  Service.find(function(err, service){
+    console.log(service);
+    res.render('viewService', {
+      Service: service
+    })
+  })
+})
+app.get('/service/edit/:id', function(req,res){
+  var id = req.params.id
+
+  Service.findOne({_id: id}, function(err, service){
+    res.render('service2', {
+      Service: service
+    })
+  })
+})
+app.post('/service/save', function(req,res){
+  var body = req.body,
+    id = body._id
+
+  if(id){
+    Service.findOne({_id: id}, function(err, service){
+      if(err) console.log(err)
+
+      if(service){
+        //update current list
+        var updated = _.assign(service, body)
+        updated.save( function(err, saved){
+          if(err) console.log(err)
+
+          res.redirect('/service')
+        })
+      }else{
+        console.log('bad id')
+        res.resnd('tu madre')
+      }
+    })
+  }else{
+    //create new
+    delete body._id
+    var service = new Service(body)
+    service.save(function(err,saved){
+      if(err) console.log(err)
+      console.log('saved')
+      res.redirect('/service')
+    })
+  }
+})
 
 app.get('/testimony/new', loggedIn, function (req, res) {
   res.render('testimony');
 });
-app.post('/insertTesti', loggedIn, function (req, res) {
+app.post('/testimony/insert', loggedIn, function (req, res) {
   console.log(req.body.primary_photo);
   var testz = new Tests({
     primary_photo: req.body.primary_photo,
@@ -256,7 +305,7 @@ app.post('/insertTesti', loggedIn, function (req, res) {
   })
   testz.save(function (err, test) {
     if (err) console.error(err);
-    res.send(testz);
+    res.redirect('/admin')
   })
 });
 

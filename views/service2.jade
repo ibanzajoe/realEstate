@@ -1,0 +1,12 @@
+html
+  head
+    title='edit service'
+  body
+    form(method="POST" action="/service/save")
+      input(type="hidden" name="_id" value=Service._id)
+      p Please enter new image URL:
+      input(type="text" name='primary_photo' value=Service.primary_photo)
+      p Please enter new service description:
+      input(type="text" name='service' value=Service.service)
+      input(type="submit" value="submit")
+    a(href="/seeList") click here to see listings

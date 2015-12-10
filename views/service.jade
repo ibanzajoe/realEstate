@@ -1,12 +1,12 @@
 html
     head
-        title='add listing'
+        title='view services'
     body
         h1 Insert New Listing
-        form(method="POST" action="/insertService")
+        form(method="POST" action="/service/insert")
             p Please enter picture URL:
-            input(type="text" name='url')
-            p Please enter listing description:
-            input(type="text" name='descript')
+            input(type="text" name='primary_photo')
+            p Please enter service description:
+            input(type="text" name='service')
             input(type="submit" value="submit")
         a(href="/seeList") click here to see listings

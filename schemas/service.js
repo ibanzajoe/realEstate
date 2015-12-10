@@ -1,9 +1,9 @@
 var mongoose = require('mongoose');
 
 var serviceSchema = new mongoose.Schema ({   //this is setting up the schema of the object and the "keys" involved
-    url: {type: String, unique: true},     //url of pictures of listing
+    primary_photo: String,     //url of pictures of listing
                              //title of listing
-    descript: String                    //description of listing
+    service: String                    //description of listing
                              //photos of listing in
 
 });

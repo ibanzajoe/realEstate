@@ -12,6 +12,12 @@ block content
     br
     p enter price of listing to search
     input(type="text" name="price" value=filters.price)
+    p enter number of bedrooms
+    input(type="text" name="nBed" value=filters.nBed)
+    p enter number of bathrooms
+    input(type="text" name="nBath" value=filters.nBath)
+    p enter number of car space
+    input(type="text" name="nCar" value=filters.nCar)
     br
     input(type="submit" value="submit")
   hr
@@ -22,6 +28,7 @@ block content
       th title
       th price
       th description
+      th numbers
       th action
     each l in Lists
       tr
@@ -30,6 +37,7 @@ block content
         td= l.title
         td= l.price
         td= l.description
+        td= l.nBed, l.nBath, l,nCar
         td
           a(href="/listing/edit/#{l._id}") Edit
 

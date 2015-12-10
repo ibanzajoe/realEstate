@@ -5,6 +5,9 @@ var listSchema = new mongoose.Schema ({   //this is setting up the schema of the
     description: String,                    //description of listing
     primary_photo: {type: String},     //url of pictures of listing
     price: String,
+    nBed: String,
+    nBath: String,
+    nCar: String,
     photos: String                         //photos of listing in
 });
 

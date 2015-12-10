@@ -48,6 +48,7 @@ app.get('/', function(req, res){
     List.find(function (err, y) {
       Service.find(function (err, z) {
         Tests.find(function (err, t) {
+          console.log(y);
           res.render('about', {
             agent: agent,
             Lists: y,
@@ -368,7 +369,7 @@ app.get('/seeList', loggedIn, function(req, res) {
 //    console.log(req.session.tumadre);
   Agent.findOne(function (err, agent) {
     List.find(function (err, list) {
-      service.find(function (err, service) {
+      Service.find(function (err, service) {
         Tests.find(function (err, test) {
           res.render('about', {
             agent: agent,
@@ -508,4 +509,8 @@ app.post('/insertNewData', loggedIn, function(req,res){
     if (err) console.error(err);
     res.redirect('/seeList');
   })
+})
+
+app.get('/test', function(req, res){
+  res.render('test');
 })

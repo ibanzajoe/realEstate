@@ -43,12 +43,21 @@ var server = app.listen(3333, function(){
 });
 mongoose.connect(db_settings.db);
 
+serviceFX = function(req, res){
+
+}
+
+app.get('/bullshit', function(req,res){
+  Tests.find(function(err, test){
+    console.log(test[0].test);
+  })
+})
+
 app.get('/', function(req, res){
   Agent.findOne(function (err, agent) {
     List.find(function (err, y) {
       Service.find(function (err, z) {
         Tests.find(function (err, t) {
-          console.log(y);
           res.render('about', {
             agent: agent,
             Lists: y,

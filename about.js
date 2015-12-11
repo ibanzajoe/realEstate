@@ -56,13 +56,15 @@ app.get('/bullshit', function(req,res){
 app.get('/', function(req, res){
   Agent.findOne(function (err, agent) {
     List.find(function (err, y) {
-      Service.find(function (err, z) {
-        Tests.find(function (err, t) {
-          res.render('about', {
-            agent: agent,
-            Lists: y,
-            service: z,
-            test: t
+      List.find().sort({_id: -1}).exec(function(err, q) {
+        Service.find(function (err, z) {
+          Tests.find(function (err, t) {
+            res.render('about', {
+              agent: agent,
+              Lists: q,
+              service: z,
+              test: t
+            });
           })
         })
       });
@@ -190,6 +192,13 @@ app.get('/listing/edit/:id', function(req,res){
   })
 })
 
+app.get('/listing/remove/:id', function(req,res){
+  var id = req.params.id
+    List.remove({_id: id}).exec();
+    console.log('tu madre');
+    res.redirect('/admin');
+  });
+
 app.post('/listing/save', function(req,res){
   var body = req.body,
     id = body._id
@@ -222,7 +231,6 @@ app.post('/listing/save', function(req,res){
     })
   }
 })
-
 
 app.get('/addList', loggedIn, function(req, res){
   res.render('listing');

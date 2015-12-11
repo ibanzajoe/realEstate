@@ -8,7 +8,7 @@ var listSchema = new mongoose.Schema ({   //this is setting up the schema of the
     nBed: String,
     nBath: String,
     nCar: String,
-    photos: String                         //photos of listing in
+    photos: String   //photos of listing in
 });
 
 var lists = mongoose.model('Lists', listSchema);  //set var "Sites" mongoose.model method that create model from the schema above titled "Lists"

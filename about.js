@@ -96,6 +96,9 @@ app.post('/login', function(req, res){
 
 app.get('/agent', loggedIn, function(req, res) {
   Agent.findOne(function(err, agent){
+
+    if(!agent) agent = {}
+
     res.render('agent', {
       data: agent
     });
@@ -251,6 +254,7 @@ app.post('/insert', loggedIn, function(req, res){
 app.get('/service/new', loggedIn, function (req, res) {
   res.render('service');
 });
+
 app.post('/service/insert', loggedIn, function (req, res) {
   var serv = new Service({
     primary_photo: req.body.primary_photo,
